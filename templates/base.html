@@ -1,0 +1,85 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}InventoryPro{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#22c55e',
+            darkBg: '#111827',
+            cardBg: '#1e293b',
+            sidebarBg: '#0f172a',
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://unpkg.com/heroicons@2.0.13/dist/outline.js"></script>
+</head>
+<body class="bg-darkBg min-h-screen text-gray-200 font-sans flex">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-sidebarBg hidden md:block">
+    <div class="flex flex-col h-full">
+      <div class="px-6 py-8 flex items-center gap-2">
+        <svg class="w-8 h-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>
+        <span class="font-bold text-xl">InventoryPro Admin</span>
+      </div>
+      <nav class="flex-1 px-2 space-y-1">
+        <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {% if request.path == url_for('dashboard') %}bg-gray-700 text-white{% else %}text-gray-300 hover:bg-gray-700{% endif %}">
+          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6"/></svg>
+          Dashboard
+        </a>
+        <a href="{{ url_for('productos') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {% if request.path.startswith('/productos') %}bg-gray-700 text-white{% else %}text-gray-300 hover:bg-gray-700{% endif %}">
+          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V7a2 2 0 00-2-2h-5l-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h12"/></svg>
+          Productos
+        </a>
+        <a href="{{ url_for('categorias') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {% if request.path.startswith('/categorias') %}bg-gray-700 text-white{% else %}text-gray-300 hover:bg-gray-700{% endif %}">
+          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h10M7 11h6M7 15h10"/></svg>
+          Categorías
+        </a>
+        <a href="{{ url_for('proveedores') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {% if request.path.startswith('/proveedores') %}bg-gray-700 text-white{% else %}text-gray-300 hover:bg-gray-700{% endif %}">
+          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v12H3z"/></svg>
+          Proveedores
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 overflow-y-auto p-6">
+    <!-- Top Navbar -->
+    <header class="flex items-center justify-between bg-darkBg px-4 py-3 rounded mb-6 shadow">
+      <div class="flex items-center gap-2">
+        <h1 class="text-2xl font-semibold text-white">{% block page_title %}{% endblock %}</h1>
+        {% block page_subtitle %}{% endblock %}
+      </div>
+      <div class="relative">
+        <button id="user-menu-btn" class="flex items-center gap-2 rounded-md px-3 py-2 text-gray-300 hover:bg-gray-700">
+          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1118.88 6.196 9 9 0 015.12 17.804z"/></svg>
+          {{ session.get('user_name', 'Usuario') }}
+        </button>
+        <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-40 rounded-md bg-gray-800 shadow-lg py-1">
+          <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Perfil</a>
+          <a href="{{ url_for('login') }}" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Salir</a>
+        </div>
+      </div>
+    </header>
+    {% block content %}{% endblock %}
+  </main>
+
+  <script>
+    // Simple dropdown toggle
+    document.getElementById('user-menu-btn')?.addEventListener('click', () => {
+      const dd = document.getElementById('user-dropdown');
+      dd.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

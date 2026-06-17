@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block page_title %}Login{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-darkBg">
+  <div class="w-96 p-8 bg-cardBg rounded-xl shadow-lg space-y-6">
+    <div class="flex flex-col items-center">
+      <div class="bg-primary w-12 h-12 rounded flex items-center justify-center">
+        <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </div>
+      <h1 class="mt-4 text-2xl font-bold text-white">InventoryPro</h1>
+      <p class="text-sm text-gray-400">Gestión de inventario conectada a datos reales</p>
+    </div>
+    <form id="login-form" method="POST" action="/" class="space-y-4">
+      <div>
+        <label for="login-email" class="block text-sm font-medium text-gray-300">Email</label>
+        <input id="login-email" name="email" type="email" required class="mt-1 block w-full rounded-md border-gray-600 bg-white text-gray-900 focus:ring-primary focus:border-primary" />
+      </div>
+      <div>
+        <label for="login-pass" class="block text-sm font-medium text-gray-300">Password</label>
+        <input id="login-pass" name="password" type="password" required class="mt-1 block w-full rounded-md border-gray-600 bg-white text-gray-900 focus:ring-primary focus:border-primary" />
+      </div>
+      <button type="submit" class="w-full flex items-center justify-center gap-2 rounded-md bg-primary py-2 font-semibold text-white hover:bg-primary/90 transition">
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+        Entrar
+      </button>
+    </form>
+    <p class="text-xs text-center text-gray-500">PROGRAMACIÓN AVANZADA - 2026 - P1</p>
+  </div>
+</div>
+{% endblock %}

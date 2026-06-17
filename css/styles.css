@@ -1,321 +1,102 @@
 /* ==============================
-   Inventory Dashboard Styles
+   InventoryPro – Custom Styles
+   Sistema 100% Frontend
    ============================== */
 
-/* ----- Root variables (light theme) ----- */
-:root {
-  --color-primary: hsl(210, 60%, 50%);   /* blue */
-  --color-primary-dark: hsl(210, 60%, 40%);
-  --color-bg: hsl(0, 0%, 98%);
-  --color-bg-card: hsl(0, 0%, 100%);
-  --color-text: hsl(210, 10%, 15%);
-  --color-muted: hsl(210, 10%, 45%);
-  --color-success: hsl(120, 50%, 40%);
-  --color-error: hsl(0, 70%, 45%);
-  --color-warning: hsl(30, 80%, 45%);
-  --radius: 8px;
-  --transition: 0.2s ease;
-  --shadow: 0 2px 6px rgba(0,0,0,0.1);
+/* ----- Custom scrollbar ----- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
 }
 
-/* ----- Dark theme overrides ----- */
-body.dark {
-  --color-bg: hsl(210, 10%, 10%);
-  --color-bg-card: hsl(210, 10%, 15%);
-  --color-text: hsl(0, 0%, 90%);
-  --color-muted: hsl(210, 10%, 55%);
+/* ----- Smooth transitions on interactive elements ----- */
+button, a, input, select {
+  transition: all 0.15s ease;
 }
 
-/* ----- Global resets ----- */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* ----- Table row hover ----- */
+tbody tr {
+  transition: background 0.15s ease;
 }
 
-html, body {
-  height: 100%;
-  font-family: 'Inter', sans-serif;
-  background: var(--color-bg);
-  color: var(--color-text);
+/* ----- Focus ring for accessibility ----- */
+input:focus, select:focus, button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.5);
 }
 
-a { text-decoration: none; color: inherit; }
-
-/* ----- Layout ----- */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.8rem 1.5rem;
-  background: var(--color-primary);
-  color: #fff;
-  box-shadow: var(--shadow);
+/* ----- Modal animation ----- */
+#modal-product,
+#modal-category,
+#modal-provider {
+  animation: modalSlideIn 0.2s ease-out;
 }
 
-.sidebar {
-  width: 240px;
-  background: var(--color-bg-card);
-  height: calc(100vh - 60px);
-  overflow-y: auto;
-  position: fixed;
-  top: 60px; /* height of navbar */
-  left: 0;
-  transition: transform var(--transition);
-}
-
-.sidebar.hidden {
-  transform: translateX(-100%);
-}
-
-.main-content {
-  margin-left: 240px;
-  padding: 1.5rem;
-  transition: margin-left var(--transition);
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    transform: translateX(-100%);
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
   }
-  .sidebar.visible {
-    transform: translateX(0);
-  }
-  .main-content {
-    margin-left: 0;
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
-/* ----- Cards ----- */
-.dashboard-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+/* ----- Backdrop fade ----- */
+#modal-backdrop {
+  animation: fadeIn 0.15s ease;
 }
 
-.card {
-  background: var(--color-bg-card);
-  border-radius: var(--radius);
-  padding: 1rem;
-  box-shadow: var(--shadow);
-  text-align: center;
-  transition: background var(--transition);
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-.card .value {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-top: 0.5rem;
-  color: var(--color-primary);
+/* ----- Login card float animation ----- */
+#login-screen > div {
+  animation: loginFloat 0.4s ease-out;
 }
 
-/* ----- Controls ----- */
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
-  margin-bottom: 1rem;
+@keyframes loginFloat {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.search-box input {
-  padding: 0.5rem 0.8rem;
-  border: 1px solid var(--color-muted);
-  border-radius: var(--radius);
-  min-width: 200px;
+/* ----- Stat card subtle hover ----- */
+#view-dashboard .grid > div {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+#view-dashboard .grid > div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
 
-.filters select, .filters button {
-  padding: 0.5rem 0.8rem;
-  border: 1px solid var(--color-muted);
-  border-radius: var(--radius);
-  background: var(--color-bg-card);
-  cursor: pointer;
+/* ----- Select dropdown styling for dark mode ----- */
+select option {
+  background: #1e293b;
+  color: #e2e8f0;
 }
 
-.filters button {
-  background: var(--color-primary);
-  color: #fff;
-  border: none;
+/* ----- Responsive sidebar overlay on mobile ----- */
+@media (max-width: 767px) {
+  #sidebar.fixed {
+    box-shadow: 4px 0 30px rgba(0,0,0,0.6);
+  }
 }
-
-/* ----- Table ----- */
-.product-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.product-table th, .product-table td {
-  padding: 0.75rem 0.5rem;
-  border-bottom: 1px solid var(--color-muted);
-  text-align: left;
-}
-
-.product-table th {
-  background: var(--color-bg-card);
-  font-weight: 600;
-}
-
-.product-table tr.low-stock {
-  background: rgba(255,165,0,0.15);
-}
-
-.product-table tr.out-of-stock {
-  background: rgba(255,0,0,0.15);
-}
-
-.action-icon {
-  cursor: pointer;
-  margin-right: 0.5rem;
-  font-size: 1.1rem;
-}
-
-/* ----- Floating Action Button ----- */
-.fab {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  color: #fff;
-  font-size: 2rem;
-  border: none;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  transition: background var(--transition);
-}
-
-.fab:hover {
-  background: var(--color-primary-dark);
-}
-
-/* ----- Modal ----- */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal {
-  background: var(--color-bg-card);
-  padding: 1.5rem;
-  border-radius: var(--radius);
-  width: 90%;
-  max-width: 400px;
-  box-shadow: var(--shadow);
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1002;
-}
-
-
-.modal.hidden, .modal-overlay.hidden {
-  display: none;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.form-group {
-  margin-bottom: 0.75rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: 500;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 0.4rem 0.6rem;
-  border: 1px solid var(--color-muted);
-  border-radius: var(--radius);
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.btn-primary {
-  background: var(--color-primary);
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius);
-  cursor: pointer;
-}
-
-.btn-secondary {
-  background: var(--color-muted);
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius);
-  cursor: pointer;
-}
-
-/* ----- Toast ----- */
-.toast-container {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  z-index: 2000;
-}
-
-.toast {
-  min-width: 200px;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius);
-  color: #fff;
-  animation: slideIn 0.3s forwards, fadeOut 0.3s 2.7s forwards;
-}
-
-.toast.success { background: var(--color-success); }
-.toast.error { background: var(--color-error); }
-.toast.warning { background: var(--color-warning); }
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(100%); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; }
-}
-
-/* ----- Icon Buttons ----- */
-.icon-btn {
-  background: transparent;
-  border: none;
-  color: inherit;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-/* ----- Transitions ----- */
-* {
-  transition: background var(--transition), color var(--transition), transform var(--transition);
-}
-
-/* ----- Misc ----- */
-.hidden { display: none !important; }
